@@ -39,7 +39,7 @@ This is a signup page(django allauth) created for Legistify
 
           - For Facebook make an app here:
                           
-            developers.facebook.com
+            https://developers.facebook.com/quickstarts/?platform=web
           
           - For Linkedin make an app here:
 
