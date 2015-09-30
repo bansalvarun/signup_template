@@ -66,7 +66,6 @@
   </head>
   <body>
     <div class="demo-layout mdl-layout mdl-layout--fixed-header mdl-js-layout mdl-color--grey-100">
-
       <div class="demo-ribbon" style="background-color:#9E9E9E"></div>
       <main class="demo-main mdl-layout__content">
         <div class="demo-container mdl-grid">
@@ -76,40 +75,40 @@
               It is probably the simplest landing page with With two SignIn SignUp Pages!
             </div>
             <h3>Welcome to my sample Signup Signin App!</h3>
-{{allusers}}
-{% for i in allusers %}
-<p>{{i.username}}</p>
-{% endfor %}
-
               <div align="center" style="margin-top:50px; ">
                 <!-- Button trigger modal -->
-                <div style="background-color:#dcdcdc; max-width:300px">
+                <div style="background-color:#dcdcdc; max-width:500px">
                 <!-- style="border-radius: 5px; border: 2px solid #9E9E9E; max-width:300px" -->
                   <h4><br/></h4>
                   {% if user.id %}
-                  <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color:red" onclick="location.href='{% url 'account_logout' %}?next={{request.path}}';" style="cursor:pointer">Sign Out</button>
+                    <h4>Hello, {{user.first_name}} {{user.last_name}}!</h4>
+                    {% if user.email %}
+                      <h6>Your Email ID: {{user.email}}</h6>
+                    {% endif %}
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color:red" onclick="location.href='{% url 'account_logout' %}?next={{request.path}}';" style="cursor:pointer">Sign Out</button>
+                    <h4><br/></h4>
 
                   {% else %}
-                  <h4><b>Sign In</b></h4>
-                  <button type="button" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color:#3F51B5" data-toggle="modal" data-target="#signIn" style="margin-right:0%;">
-                    &nbsp&nbsp&nbsp&nbsp&nbsp Member Log In!&nbsp&nbsp&nbsp&nbsp&nbsp  
-                  </button>
-                  <h4></h4>
-                  <!-- <h6>OR</h6> -->
-                  <h4></h4>
-                  <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color:#007BB6" >
-                    Sign In with LinkedIn
-                  </button>
-                 <!-- <h6>OR</h6> -->
-                  <h4></h4>
-                  <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color:#2D4373" onclick="location.href='{% provider_login_url "facebook" method="oauth2" %}?next={{request.path}}';">
-                    Sign In with Facebook
-                  </button>
-                  <h4></h4>
-                  <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color:#fff; color:#000" data-toggle="modal" data-target="#signUp">
-                    Register to a classic account
-                  </button>
-                  <h4><br/></h4>
+                    <h4><b>Sign In</b></h4>
+                    <button type="button" class=" mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color:#3F51B5" data-toggle="modal" data-target="#signIn" style="margin-right:0%;">
+                      &nbsp&nbsp&nbsp&nbsp&nbsp Member Log In!&nbsp&nbsp&nbsp&nbsp&nbsp  
+                    </button>
+                    <h4></h4>
+                    <!-- <h6>OR</h6> -->
+                    <h4></h4>
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color:#007BB6" >
+                      Sign In with LinkedIn
+                    </button>
+                   <!-- <h6>OR</h6> -->
+                    <h4></h4>
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color:#2D4373" onclick="location.href='{% provider_login_url "facebook" method="oauth2" %}?next={{request.path}}';">
+                      Sign In with Facebook
+                    </button>
+                    <h4></h4>
+                    <button type="button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored" style="background-color:#fff; color:#000" data-toggle="modal" data-target="#signUp">
+                      Register to a classic account
+                    </button>
+                    <h4><br/></h4>
                   {% endif %}
                 </div>
               </div>
@@ -128,11 +127,11 @@
                             <input type='hidden' name='csrfmiddlewaretoken' value='{{csrf_token}}' >
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                               <input class="mdl-textfield__input" type="text" id="id_login" name="login" placeholder="Username"/>
-                              <label class="mdl-textfield__label" for="sample3">Username...</label>
+                              <label class="mdl-textfield__label" for="id_login">Username...</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                               <input class="mdl-textfield__input" type="password" id="id_password" name="password" placeholder="Password"/>
-                              <label class="mdl-textfield__label" for="sample3">Password...</label>
+                              <label class="mdl-textfield__label" for="id_password">Password...</label>
                             </div>                        
                         </div>
                         <div class="modal-footer">
@@ -152,20 +151,29 @@
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                       <h4 class="modal-title" id="myModalLabel">Please Fill this Form to register</h4>
                     </div>
-                      <form class="signup" id="signup_form" method="POST" action="{% url 'account_signup' %}">
-                        <div class="modal-body">
+                      <!-- method="POST" action="{% url 'account_signup' %}" -->
+                      <div class="modal-body">
+                        <form class="signup" id="signup_form"  >
                             <input type='hidden' name='csrfmiddlewaretoken' value='{{csrf_token}}' >
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                               <input autofocus="autofocus" name="first_name" class="mdl-textfield__input"  type="text" id="id_first_name" value="Varun"/>
-                              <label class="mdl-textfield__label" for="id_name">First Name...</label>
+                              <label class="mdl-textfield__label" id="firstnameLabel" for="id_name">First Name...</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                               <input autofocus="autofocus" name="last_name" class="mdl-textfield__input"  type="text" id="id_last_name" value="Bansal"/>
-                              <label class="mdl-textfield__label" for="id_last_name">Last Name...</label>
+                              <label class="mdl-textfield__label" id="lastnameLabel" for="id_last_name">Last Name...</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display:none" id="usernameLabelError">
+                              <input autofocus="autofocus"  class="mdl-textfield__input"  type="text" id="" value="Bansal" style="display:none" />
+                              <label class="mdl-textfield__label" style="color:red; ">Username is already taken, please try someother..</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                               <input autofocus="autofocus" name="username" class="mdl-textfield__input"  type="text" id="id_username" value="varun6"/>
-                              <label class="mdl-textfield__label" for="id_username">Username...</label>
+                              <label class="mdl-textfield__label" id="usernameLabel" for="id_username">Username...</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display:none" id="emailLabelError">
+                              <input autofocus="autofocus"  class="mdl-textfield__input"  type="text" id="" value="Bansal" style="display:none" />
+                              <label class="mdl-textfield__label" style="color:red; ">This Email ID is already registered..</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                               <input  autofocus="autofocus" name="email" class="mdl-textfield__input" type="text" id="id_email" />
@@ -173,43 +181,142 @@
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                               <input  autofocus="autofocus" name="password1" class="mdl-textfield__input" type="password" id="id_password1" value="lenovo"/>
-                              <label class="mdl-textfield__label" for="id_password1">Password...</label>
+                              <label class="mdl-textfield__label" id="password1Label" for="id_password1">Password...</label>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="display:none" id="passwordLabelError">
+                              <input autofocus="autofocus"  class="mdl-textfield__input"  type="text" id="" value="Bansal" style="display:none" />
+                              <label class="mdl-textfield__label" style="color:red; ">You must type the same password each time...</label>
                             </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                               <input autofocus="autofocus" name="password2" class="mdl-textfield__input" type="password" id="id_password2" value="lenovo"/>
-                              <label class="mdl-textfield__label" for="id_password2">Confirm Password...</label>
+                              <label class="mdl-textfield__label" id="password2Label" for="id_password2">Confirm Password...</label>
                             </div>
                          <input id="id_confirmation_key" maxlength="40" name="confirmation_key" type="hidden">
                         <input type="hidden" name="home" value="/" />
                         </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                          <button type="submit" class="btn btn-primary">Register</button>
-                        </div>
-                    </form> 
+                      </form> 
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button onclick="signup()" class="btn btn-primary">Register</button>
+                      </div>
 
                   </div>
                 </div>
               </div>  
               <!-- Modal ended -->
-
-
-
           </div>
         </div>
-<!--         <footer class="demo-footer mdl-mini-footer">
-          <div class="mdl-mini-footer--left-section">
-            <ul class="mdl-mini-footer--link-list">
-              <li><a href="#">Help</a></li>
-              <li><a href="#">Privacy and Terms</a></li>
-              <li><a href="#">User Agreement</a></li>
-            </ul>
-          </div>
-        </footer> -->
       </main>
     </div>
     <script src="../staticfiles/material.min.js"></script>
+<script>
+  function signup(){
+    var formData = {
+        'csrfmiddlewaretoken': '{{ csrf_token }}',
+        'first_name' :$('input[name=first_name]').val(),
+        'last_name' :$('input[name=last_name]').val(),
+        'email' :$('input[name=email]').val(),
+        'username' :$('input[name=username]').val(),
+        'password1' :$('input[name=password1]').val(),
+        'password2' :$('input[name=password2]').val(),
+    };
+
+    if(formData['first_name']==""){
+      document.getElementById("firstnameLabel").innerHTML = "First Name... Please Fill Me!"      
+    }
+    else if (formData['first_name']!=""){
+      document.getElementById("firstnameLabel").innerHTML = "First Name..."            
+    }
+    if(formData['last_name']==""){
+      document.getElementById("lastnameLabel").innerHTML = "Last Name... Please Fill Me!"            
+    }
+    else if(formData['last_name']!=""){
+      document.getElementById("lastnameLabel").innerHTML = "Last Name..."            
+    }
+    if(formData['username']==""){
+      document.getElementById("usernameLabel").innerHTML = "Username... Please Fill Me!"            
+    }
+    else if(formData['username']!=""){
+      document.getElementById("usernameLabel").innerHTML = "Username..."            
+    }
+    if(formData['password1']==""){
+      document.getElementById("password1Label").innerHTML = "Password... Please Fill Me!"                  
+    }
+    else if(formData['password1']!=""){
+      document.getElementById("password1Label").innerHTML = "Password..."                  
+    }
+    if(formData['password2']==""){
+      document.getElementById("password2Label").innerHTML = "Password... Please Fill Me!"                  
+    }
+    else if(formData['password2']!=""){
+      document.getElementById("password2Label").innerHTML = "Password..."                  
+    }
+    if(formData['first_name']!="" && formData['last_name']!="" && formData['password1']!="" && formData['password2']!=""){
+      document.getElementById("firstnameLabel").innerHTML= "First Name..."    
+      document.getElementById("lastnameLabel").innerHTML = "Last Name..."            
+
+      $('#signup_form').unbind('submit').bind('submit',function(event) {
+            event.preventDefault();
+            $.ajax({
+                type        : 'POST', // define the type of HTTP verb we want to use (POST for our form)
+                url     : "{% url 'account_signup' %}",
+                data        : formData, // our data object
+                dataType    : 'json', // what type of data do we expect back from the server
+                encode          : true,
+                cache: false,
+                success: function () {
+                  alert(
+                    "Hello, "+ formData['first_name'] + " " +formData['last_name']+"!\n"+
+                    "You are now registered here!\n"+
+                    "To sign in later, use username: " + formData['username']+"\n"+
+                    "Shall I take you to your profile page now?" 
+                    );
+                  window.location.href = "/";
+                },
+        
+                error : function(xhr,errmsg,err) {
+                  errorsGot = xhr.responseText
+                  errorsGot = errorsGot.split(",")
+
+                  for (i=0; i<errorsGot.length-1; i++){
+                    error = errorsGot[i].split(":")
+                    error = error[error.length-1]
+                    error = error.split('"')[1]
+                    console.log(error);
+                    errorsGot[i] = error; 
+                  }
+                  console.log(document.getElementById("usernameLabelError").style.display);
+                  if(errorsGot[0]=="This username is already taken. Please choose another."){
+                    document.getElementById("usernameLabelError").style.display = "block";
+                  }
+                  else{
+                    document.getElementById("usernameLabelError").style.display = "none";                    
+                  }
+                  if(errorsGot[0]=="You must type the same password each time."){
+                    document.getElementById("passwordLabelError").style.display = "block";
+                  }
+                  else{
+                    document.getElementById("passwordLabelError").style.display = "none";                    
+                  }
+                  if(errorsGot[0]=="A user is already registered with this e-mail address."){
+                    document.getElementById("emailLabelError").style.display = "block";
+                  }
+                  else{
+                    document.getElementById("emailLabelError").style.display = "none";                    
+                  }
+
+                },
+
+            })
+        });
+      $("#signup_form").submit();    
+      console.log(formData)
+    }
+  };
+
 
 </script>
+
+
   </body>
 </html>

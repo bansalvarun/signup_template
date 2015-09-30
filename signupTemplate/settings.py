@@ -143,3 +143,12 @@ SOCIALACCOUNT_PROVIDERS = \
         'LOCALE_FUNC': 'path.to.callable',
         'VERIFIED_EMAIL': False,
         'VERSION': 'v2.4'}}
+SOCIALACCOUNT_PROVIDERS = \
+    {'linkedin':
+      {'SCOPE': ['r_emailaddress'],
+       'PROFILE_FIELDS': ['id',
+                         'first-name',
+                         'last-name',
+                         'email-address',
+                         'picture-url',
+                         'public-profile-url']}}        

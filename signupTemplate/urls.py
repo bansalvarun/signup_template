@@ -22,5 +22,4 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^accounts/', include('allauth.urls')),
     url(r'^$', home),
-    url(r'^profile2', profile),
 ]
